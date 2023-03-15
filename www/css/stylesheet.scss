@@ -241,6 +241,13 @@ body {
       height: 100%;
       align-items: center;
 
+      li{
+        transition: transform 1s;
+        &:hover{
+          transform: scale(1.1);
+        }
+      }
+
       &.active {
         display: block;
       }
@@ -281,6 +288,16 @@ body {
       width: 40px;
       height: 40px;
       padding: 7px;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      transition: all 0.5s;
+      &:hover{
+        background-color: #ffffff4d;
+        box-shadow: 0px 0px 10px #00000045;
+        svg{
+          color:$secondary;
+        }
+      }
     }
 
     .cta_menu {
@@ -343,8 +360,18 @@ body {
             color: inherit;
             position: relative;
             padding: 5px;
+            transition: transform 1s;
             @include respond-above("md") {
               padding: 10px;
+            }
+            svg{
+              transition: color;
+            }
+            &:hover{
+              transform: translateX(10px);
+              svg{
+                color: $secondary
+              }
             }
           }
         }
@@ -403,6 +430,11 @@ body {
     bottom: 20%;
     right: calc(50% - 20px);
     z-index: 2;
+    transition: padding-top 0.5s;
+    &:hover{
+      box-shadow: 0px 0px 10px #00000045;
+      padding-top: 5px;
+    }
 
     &:not(.active) {
       animation: next_step 1s ease-in-out forwards !important;
@@ -578,21 +610,19 @@ body {
               font-family: monospace;
               transition: all 0.2s;
               position: absolute;
-              top: 50%;
+              top: 35%;
               right: 50%;
               z-index: 1;
-              transition: padding-left 2s ease-in-out, top 1s ease-in-out, right 2s ease-in-out;
+              transition: padding-left 2s ease-in-out, right 2s ease-in-out;
             }
             &.sky_active:after {
                 content: "Woww !";
-                top: 20%;
                 right: -14%;
                 padding-left: 100px;
               }
             &:hover{
               &:after {
                 content: "Salut.";
-                top: 20%;
                 right: -14%;
                 padding-left: 100px;
               }
@@ -679,6 +709,7 @@ body {
 
           .subtitle {
             margin-top: 30px;
+            display: inline-block;
           }
         }
       }

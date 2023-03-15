@@ -17,7 +17,7 @@ const app = Vue.createApp({
                 {
                     id: 'banner',
                     label_link: 'Banner',
-                    title: 'Front-End developer / Expert  Wordpress'
+                    title: 'Front-End developer / Expert Wordpress / Creative developer'
                 },
                 {
                     id: 'skills',
@@ -171,6 +171,16 @@ const app = Vue.createApp({
         },
     },
 }).mount('#app');
+
+var typed3 = new Typed('#typed', {
+    strings: ["Front-End developer","Expert Wordpress","Creative developer"],
+    typeSpeed: 100,
+    backSpeed: 50,
+    backDelay: 1000,
+    smartBackspace: true, // this is a default
+    loop: true
+});
+
 
 
 const track = document.getElementById("image-track");
