@@ -452,11 +452,55 @@ body #main section#banner .blob#blob3 {
 body #main section#banner .wrapper {
   position: relative;
   z-index: 1;
+  padding: 10% 10vw;
+  display: flex;
+  justify-content: space-around;
   position: absolute;
   top: 50%;
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+body #main section#banner .wrapper .content_right {
+  position: relative;
+}
+body #main section#banner .wrapper .content_right .clip-svg {
+  clip-path: url(#myClip);
+  width: 267px;
+  position: relative;
+  z-index: 2;
+}
+body #main section#banner .wrapper .content_right #myClip {
+  scale: 1.4;
+}
+body #main section#banner .wrapper .content_right:after {
+  content: "...";
+  background-color: #ffffff4d;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 12px;
+  margin-left: 4px;
+  overflow: hidden;
+  font-family: monospace;
+  transition: all 0.2s;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  z-index: 1;
+  transition: padding-left 2s ease-in-out, top 1s ease-in-out, right 2s ease-in-out;
+}
+body #main section#banner .wrapper .content_right.sky_active:after {
+  content: "Woww !";
+  top: 20%;
+  right: -14%;
+  padding-left: 100px;
+}
+body #main section#banner .wrapper .content_right:hover:after {
+  content: "Salut.";
+  top: 20%;
+  right: -14%;
+  padding-left: 100px;
 }
 body #main section#banner .wrapper .title {
   font-family: "Alfa Slab One", cursive;

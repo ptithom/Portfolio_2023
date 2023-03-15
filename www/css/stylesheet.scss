@@ -51,7 +51,7 @@
 //  }
 //}
 
-@keyframes  title_font{
+@keyframes title_font {
 
   from {
     -webkit-transform: scale3d(1, 1, 1);
@@ -62,7 +62,7 @@
   30% {
     -webkit-transform: scale3d(1.25, 0.75, 1);
     transform: scale3d(1.25, 0.75, 1);
-    font-variation-settings: "wght" 100, "ital" 0,"wdth" 100;
+    font-variation-settings: "wght" 100, "ital" 0, "wdth" 100;
   }
 
   40% {
@@ -429,6 +429,7 @@ body {
         animation-delay: 1.5s;
         transition: all 2s;
         height: 90vh;
+
         .sky {
           transition: all 2s;
           opacity: 0;
@@ -546,21 +547,75 @@ body {
         .wrapper {
           position: relative;
           z-index: 1;
+          padding: 10% 10vw;
+          display: flex;
+          justify-content: space-around;
           @include vertical-center();
+
+          .content_right {
+            position: relative;
+
+            .clip-svg {
+              clip-path: url(#myClip);
+              width: 267px;
+              position: relative;
+              z-index: 2;
+            }
+
+            #myClip {
+              scale: 1.4;
+            }
+
+            &:after {
+              content: "...";
+              background-color: #ffffff4d;
+              border-radius: 4px;
+              padding: 4px 8px;
+              font-size: 12px;
+              line-height: 12px;
+              margin-left: 4px;
+              overflow: hidden;
+              font-family: monospace;
+              transition: all 0.2s;
+              position: absolute;
+              top: 50%;
+              right: 50%;
+              z-index: 1;
+              transition: padding-left 2s ease-in-out, top 1s ease-in-out, right 2s ease-in-out;
+            }
+            &.sky_active:after {
+                content: "Woww !";
+                top: 20%;
+                right: -14%;
+                padding-left: 100px;
+              }
+            &:hover{
+              &:after {
+                content: "Salut.";
+                top: 20%;
+                right: -14%;
+                padding-left: 100px;
+              }
+            }
+
+          }
 
           .title {
             font-family: $font_secondary;
             font-weight: 400;
             font-size: clamp(16px, 4vw, 3.3rem);
-            .letter{
+
+            .letter {
               font-family: Oddval Variable;
               transition: all 0.5s;
-              font-variation-settings: "wght" 900, "ital" 0,"wdth" 0;
+              font-variation-settings: "wght" 900, "ital" 0, "wdth" 0;
               display: inline-block;
             }
-            .letter:hover{
-              animation: title_font 1s ;
+
+            .letter:hover {
+              animation: title_font 1s;
             }
+
             .logo_letter {
               font-style: normal;
               font-family: serif;
@@ -572,15 +627,19 @@ body {
               padding-right: 10px;
               transition: transform 1s;
               display: inline-block;
-              &:hover, &.active{
+
+              &:hover, &.active {
                 transform: rotate(14deg);
+
                 &:after {
                   animation: none;
                 }
-                &:before{
+
+                &:before {
                   border: 1px solid $secondary;
                 }
               }
+
               &:after {
                 content: "";
                 position: absolute;
@@ -629,7 +688,8 @@ body {
         width: auto;
         margin: 0rem;
         overflow: hidden;
-        .content{
+
+        .content {
           max-width: 40%;
           position: absolute;
           padding-left: 200px;
@@ -637,6 +697,7 @@ body {
           left: 0;
           transform: translate(0%, -50%);
         }
+
         #image-track {
           display: flex;
           gap: 4vmin;

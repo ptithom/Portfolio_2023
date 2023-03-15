@@ -119,7 +119,7 @@
 
         <section :id="items[0].id" @mouseover="blob_wakeup = true" @mouseleave="blob_wakeup = false">
             <transition>
-                <div class="sky animate__animated animate__fadeIn" :class="{active: sky_active} " v-if="sky_active">
+                <div class="sky animate__animated animate__fadeIn" :class="{active: sky_active} " v-show="sky_active">
                     <svg class="extras" width="100%" height="100%" preserveAspectRatio="none">
                         <defs>
                             <radialGradient id="comet-gradient" cx="0" cy=".5" r="0.5">
@@ -754,24 +754,39 @@
             </div>
 
 
-            <div class="wrapper">
-                <h1 class="title">
+            <div class="wrapper" >
+                <div class="content">
+                    <h1 class="title">
                     <span class="line animate__animated animate__fadeInUp">
                         <span class="">Hello,</span>
                     </span>
-                    <span class="line animate__animated animate__fadeInUp">
+                        <span class="line animate__animated animate__fadeInUp">
                         <span >je suis </span>
                             <span class="logo_letter" :class="{active: sky_active}" @click="show_sky">T</span>
                         <span class="letters_group">homas</span>,
                     </span>
-                    <span class="line animate__animated animate__fadeInUp">
+                        <span class="line animate__animated animate__fadeInUp">
                         <span class="">créateur de sites web</span>
                     </span>
-                </h1>
+                    </h1>
 
-                <h2 class="subtitle">
-                    {{items[0].title}}
-                </h2>
+                    <h2 class="subtitle">
+                        {{items[0].title}}
+                    </h2>
+                </div>
+
+                <div class="content_right" :class="{sky_active: sky_active}">
+                    <img class="clip-svg" src="https://scontent-cdg4-1.xx.fbcdn.net/v/t39.30808-6/262694977_10226597927117343_8891730767048802697_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=YxfmZwDC0cUAX_2oAb0&_nc_ht=scontent-cdg4-1.xx&oh=00_AfCY_JNJi_DUgI3W3K4hXkqrHgtKQRjNTB57-UM2jXygMg&oe=64161870" alt="Homer">
+
+                    <svg width="0" height="0" >
+                        <clipPath id="myClip">
+                            <path fill="#FF0066" d="M45.6,-78.3C59.2,-71.1,70.5,-59.1,73.3,-45.3C76.2,-31.5,70.5,-15.7,66.1,-2.5C61.8,10.7,58.6,21.4,55.6,34.8C52.6,48.3,49.6,64.5,40.3,75.3C31.1,86.1,15.5,91.5,0.4,90.8C-14.8,90.2,-29.7,83.6,-42.1,74.7C-54.6,65.8,-64.8,54.5,-72.4,41.7C-80.1,28.8,-85.3,14.4,-86.8,-0.8C-88.2,-16.1,-85.9,-32.2,-78.6,-45.6C-71.2,-59,-58.9,-69.9,-45,-76.9C-31,-84,-15.5,-87.3,0.2,-87.6C16,-88,31.9,-85.5,45.6,-78.3Z" transform="translate(100 100)" />
+                        </clipPath>
+                    </svg>
+                </div>
+
+
+
 
             </div>
 
