@@ -1,0 +1,39 @@
+stages:
+  - deploy
+
+include:
+  - local: .gitlab-ci-variables.yml
+
+default:
+  before_script:
+    - 'which ssh-agent || ( apk add --update openssh )'
+    - apk add --update bash
+    - apk add --update git
+    - apk add --no-cache lftp
+    - eval $(ssh-agent -s)
+    - echo "${SSH_PRIVATE_KEY}" | ssh-add -
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - chmod +x deploy.sh
+
+staging:
+  stage: deploy
+  only:
+    - staging
+  script:
+    - ./deploy.sh STAGING
+
+release_candidate:
+  stage: deploy
+  only:
+    - /^(r(c|l)(_|-).*|recettage)$/
+  script:
+    - ./deploy.sh RELEASE_CANDIDATE
+
+prod:
+  stage: deploy
+  only:
+    - master
+  script:
+    - ./deploy.sh PROD
+

@@ -1,0 +1,227 @@
+version: '3'
+networks:
+  frontend:
+    external:
+      name: frontend
+  srdb:
+    external:
+      name: srdb
+  backend:
+services:
+  # web server
+  apache-php:
+    restart: unless-stopped
+    image: ${APACHE_PHP_IMG}
+    container_name: ${PREFIX}_apache-php
+    hostname: ${PREFIX}
+    domainname: ${MAIN_DOMAIN}
+    ## Block START : syslog_apache
+#    logging:
+#      driver: syslog
+#      options:
+#        syslog-address: "udp://localhost:514"
+#        syslog-format: rfc3164
+#        tag: ${PREFIX}_php
+    ## Block END : syslog_apache
+    volumes:
+      # app
+      - ./www:/var/www/html/
+      # apache configs
+      - ./apache/conf/vhost.conf:/etc/apache2/sites-available/000-default.conf
+      - ./apache/conf/apache2.conf:/etc/apache2/conf-enabled/docker.conf
+      - ./apache/logs:/var/log/apache2
+      # php configs
+      - ./php/conf/php.ini:/usr/local/etc/php/conf.d/custom.ini
+      # Crons
+      - ./sys/cron.d/crontab:/etc/cron.d/crontab
+      # Supervisor
+      - ./supervisor/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USERNAME=${DB_USER:-'my_database'}
+      - MYSQL_PASSWORD=${DB_PASS:-'123456'}
+      - MYSQL_DB_NAME=${DB_NAME:-'my_database'}
+      - DEBUG=${DEBUG:-false}
+    labels:
+      # Crontab
+      ## Block START : crontab_apache
+#      - deck-chores.wpcron.command=wget -qO- http://localhost/wp-cron.php &> /proc/1/fd/1
+#      - deck-chores.wpcron.interval=every minute
+      ## Block END : crontab_apache
+
+      # Traefik
+      - traefik.enable=true
+      - traefik.docker.network=frontend
+
+      # HTTP
+      - traefik.http.routers.${PREFIX}.rule=HostRegexp(`${URL_APP}`,`{aliases:${URL_ALIAS:-default}}`,`{aliases:${URL_UNREDIRECTED:-default}}`)
+      - traefik.http.routers.${PREFIX}.entrypoints=http
+
+      # HTTPS
+      - traefik.http.routers.${PREFIX}s.rule=HostRegexp(`${URL_APP}`,`{aliases:${URL_ALIAS:-default}}`,`{aliases:${URL_UNREDIRECTED:-default}}`)
+      - traefik.http.routers.${PREFIX}s.entrypoints=https
+      - traefik.http.routers.${PREFIX}s.tls=true
+
+      # Redirectons HTTP => HTTPS et ALIAS vers APP
+      - "traefik.http.middlewares.${PREFIX}-redirecthttps.redirectregex.regex=^https?://(?:${URL_APP}|${URL_ALIAS})(.+)"
+      - "traefik.http.middlewares.${PREFIX}-redirecthttps.redirectregex.replacement=https://${URL_APP}$${1}"
+      - traefik.http.middlewares.${PREFIX}-redirecthttps.redirectregex.permanent=true
+      - traefik.http.routers.${PREFIX}.middlewares=${PREFIX}-redirecthttps
+      - traefik.http.routers.${PREFIX}s.middlewares=${PREFIX}-redirecthttps
+
+      # CORS Headers
+      ## Block START : cors_headers
+      #- "traefik.http.middlewares.${PREFIX}-corsheaders.headers.accesscontrolallowmethods=GET,OPTIONS,PUT"
+      #- "traefik.http.middlewares.${PREFIX}-corsheaders.headers.accesscontrolalloworigin=*"
+      #- "traefik.http.middlewares.${PREFIX}-corsheaders.headers.accessControlAllowHeaders=Content-Type"
+      ## Block END : cors_headers
+
+      ## Activation Let's encrypt
+      ## Block START : letsencrypt_apache
+#      - traefik.http.routers.${PREFIX}s.tls.certresolver=letsencrypt
+#      - traefik.http.routers.${PREFIX}s.tls.domains[0].main=${URL_APP}
+      ## Block END : letsencrypt_apache
+      ## Only if multiple domains
+      ## Block START : letsencrypt_apache_multidomains
+#      - traefik.http.routers.${PREFIX}s.tls.domains[0].sans=${CERT_ALIAS_DOMAINS}
+      ## Block END : letsencrypt_apache_multidomains
+
+      # Basic Auth Configuration (can be commented or uncommented)
+      ## Block START : basicauth_apache
+#      - "traefik.http.middlewares.${PREFIX}-chain.chain.middlewares=${PREFIX}-redirecthttps,${PREFIX}-auth"
+#      - "traefik.http.middlewares.${PREFIX}-auth.basicauth.realm=${TRAEFIK_HTPASSWD_REALM}"
+#      - "traefik.http.middlewares.${PREFIX}-auth.basicauth.users=${TRAEFIK_HTPASSWD_USER}:${TRAEFIK_HTPASSWD_PASS}"
+#      - "traefik.http.routers.${PREFIX}.middlewares=${PREFIX}-chain"
+#      - "traefik.http.routers.${PREFIX}s.middlewares=${PREFIX}-chain"
+      ## Block END : basicauth_apache
+    networks:
+      - backend
+      - frontend
+
+  # database
+  mysql:
+    restart: unless-stopped
+    image: mariadb
+    container_name: ${PREFIX}_mysql
+    ## Block START : syslog_mysql
+#    logging:
+#      driver: syslog
+#      options:
+#        syslog-address: "udp://localhost:514"
+#        syslog-format: rfc3164
+#        tag: ${PREFIX}_db
+    ## Block END : syslog_mysql
+    volumes:
+      # data stored in ./mysql
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/sql:/sql
+      - ./mysql/backups:/backups
+      # mysql configs
+      - ./mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    networks:
+      - backend
+      - srdb
+    labels:
+      # Crontab
+      - deck-chores.sqldump.command=sh /backups/backup.sh root ${DB_ROOT_PASSWORD} 7
+      - deck-chores.sqldump.interval=daily
+
+  # phpmyadmin
+  phpmyadmin:
+    restart: unless-stopped
+    image: phpmyadmin/phpmyadmin
+    container_name: ${PREFIX}_phpmyadmin
+    depends_on:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+      - UPLOAD_LIMIT=2G
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=frontend
+      # URL
+      - traefik.http.routers.${PREFIX}pma.rule=Host(`pma.${URL_APP}`)
+      - traefik.http.routers.${PREFIX}pma.entrypoints=http
+
+      # HTTPS
+      - traefik.http.routers.${PREFIX}pmas.rule=Host(`pma.${URL_APP}`)
+      - traefik.http.routers.${PREFIX}pmas.entrypoints=https
+      - traefik.http.routers.${PREFIX}pmas.tls=true
+
+      # Activation Let's encrypt
+      ## Block START : letsencrypt_pma
+#      - traefik.http.routers.${PREFIX}pmas.tls.certresolver=letsencrypt
+      ## Block END : letsencrypt_pma
+
+      # Basic Auth Configuration (can be commented or uncommented)
+      ## Block START : basicauth_pma
+#      - "traefik.http.middlewares.${PREFIX}-pmaauth.basicauth.realm=${TRAEFIK_HTPASSWD_REALM}"
+#      - "traefik.http.middlewares.${PREFIX}-pmaauth.basicauth.users=${TRAEFIK_HTPASSWD_USER}:${TRAEFIK_HTPASSWD_PASS}"
+#      - "traefik.http.routers.${PREFIX}pma.middlewares=${PREFIX}-pmaauth"
+#      - "traefik.http.routers.${PREFIX}pmas.middlewares=${PREFIX}-pmaauth"
+      ## Block END : basicauth_pma
+    networks:
+      - backend
+      - frontend
+
+
+
+  # Matomo (stats)
+#  matomo:
+#    build: ./matomo/
+#    restart: unless-stopped
+#    container_name: ${PREFIX}_matomo
+#    volumes:
+#      - ./matomo/config:/var/www/html/config
+#      - ./apache/logs:/var/www/html/logs
+#      - ./matomo/data:/var/www/html
+#    environment:
+#      - MATOMO_DATABASE_HOST=mysql
+#      - MYSQL_PASSWORD=
+#      - MYSQL_DATABASE=matomo
+#      - MYSQL_USER=matomo
+#      - MATOMO_DATABASE_ADAPTER=mysql
+#      - MATOMO_DATABASE_TABLES_PREFIX=matomo_
+#      - MATOMO_DATABASE_USERNAME=matomo
+#      - MATOMO_DATABASE_PASSWORD=
+#      - MATOMO_DATABASE_DBNAME=matomo
+#    labels:
+#      # Crontab
+#      ## Block START : crontab_apache
+#      #- deck-chores.matomocron.command=/usr/bin/python3 /var/www/html/misc/log-analytics/import_logs.py --url=http://matomo --login=${MATOMO_USER:-'stafe'} --password=${MATOMO_PASS:-'23779989'} --idsite=1 --recorders=4 /var/www/html/logs/access.log
+#      #- deck-chores.matomocron.interval=every minute
+#      ## Block END : crontab_apache
+#
+#      - traefik.enable=true
+#      - traefik.docker.network=frontend
+#      # URL
+#      - traefik.http.routers.${PREFIX}matomo.rule=Host(`stats.${URL_APP}`)
+#      - traefik.http.routers.${PREFIX}matomo.entrypoints=http
+#
+#      # HTTPS
+#      - traefik.http.routers.${PREFIX}matomos.rule=Host(`stats.${URL_APP}`)
+#      - traefik.http.routers.${PREFIX}matomos.entrypoints=https
+#      - traefik.http.routers.${PREFIX}matomos.tls=true
+#
+#      # Activation Let's encrypt
+#      ## Block START : letsencrypt_matomo
+#      #      - traefik.http.routers.${PREFIX}matomos.tls.certresolver=letsencrypt
+#      ## Block END : letsencrypt_matomo
+#
+#      # Basic Auth Configuration (can be commented or uncommented)
+#      ## Block START : basicauth_matomo
+#      #      - "traefik.http.middlewares.${PREFIX}-matomoauth.basicauth.realm=${TRAEFIK_HTPASSWD_REALM}"
+#      #      - "traefik.http.middlewares.${PREFIX}-matomoauth.basicauth.users=${TRAEFIK_HTPASSWD_USER}:${TRAEFIK_HTPASSWD_PASS}"
+#      #      - "traefik.http.routers.${PREFIX}matomo.middlewares=${PREFIX}-matomoauth"
+#      #      - "traefik.http.routers.${PREFIX}matomos.middlewares=${PREFIX}-matomoauth"
+#      ## Block END : basicauth_matomo
+#    networks:
+#      - backend
+#      - frontend
+
+volumes:
+  apache_log:

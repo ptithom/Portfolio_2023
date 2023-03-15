@@ -1,0 +1,28 @@
+/*------------------------------------*\
+    STYLE
+\*------------------------------------*/
+
+h1{
+  @include respond-above("md"){}
+}
+
+h2{
+  @include respond-above("md"){}
+}
+
+h3{
+  @include respond-above("md"){}
+}
+
+h4{
+}
+
+a{
+  &:hover{
+    color: $secondary;
+  }
+}
+
+body{
+  font-family: $font_primary;
+}

@@ -1,0 +1,12 @@
+.idea
+.env
+mysql/data/*
+!mysql/data/.gitkeep
+mysql/backups/dumps/*
+!mysql/backups/dumps/.gitkeep
+apache/logs/*
+!apache/logs/.gitkeep
+matomo/config/*
+!matomo/config/.gitkeep
+matomo/data/*
+!matomo/data/.gitkeep

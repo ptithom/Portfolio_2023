@@ -1,0 +1,40 @@
+variables:
+  DEPLOYMENT_METHOD: git # 'git' if available | 'lftp' if mirroring only
+  DEPLOYMENT_METHOD_STAGING: ${DEPLOYMENT_METHOD}
+  DEPLOYMENT_METHOD_RELEASE_CANDIDATE: ${DEPLOYMENT_METHOD}
+  DEPLOYMENT_METHOD_PROD: ${DEPLOYMENT_METHOD}
+
+  TARGET_SERVER_USER: root
+  TARGET_SERVER_HOST: gallifrey.stafe.fr
+  TARGET_SERVER_PORT: 22000
+  TARGET_SERVER_DIR: /dir/to/project
+
+  TARGET_SERVER_STAGING_USER: ${TARGET_SERVER_USER}
+  TARGET_SERVER_STAGING_HOST: ${TARGET_SERVER_HOST}
+  TARGET_SERVER_STAGING_PORT: ${TARGET_SERVER_PORT}
+  TARGET_SERVER_STAGING_DIR: ${TARGET_SERVER_DIR}
+
+  TARGET_SERVER_RELEASE_CANDIDATE_USER: ${TARGET_SERVER_USER}
+  TARGET_SERVER_RELEASE_CANDIDATE_HOST: ${TARGET_SERVER_HOST}
+  TARGET_SERVER_RELEASE_CANDIDATE_PORT: ${TARGET_SERVER_PORT}
+  TARGET_SERVER_RELEASE_CANDIDATE_DIR: ${TARGET_SERVER_DIR}
+
+  TARGET_SERVER_PROD_USER: ${TARGET_SERVER_USER}
+  TARGET_SERVER_PROD_HOST: ${TARGET_SERVER_HOST}
+  TARGET_SERVER_PROD_PORT: ${TARGET_SERVER_PORT}
+  TARGET_SERVER_PROD_DIR: ${TARGET_SERVER_DIR}
+
+  COMMAND: ""
+  ### For Docker + Laravel project
+  #  COMMAND: docker-compose exec -T apache-php chown -R 1000:1000 . && docker-compose exec -T apache-php composer update && docker-compose exec -T apache-php php artisan cache:clear
+  ### For Docker + Prestashop project
+  #  COMMAND: docker-compose exec -T apache-php chown -R 1000:1000 .
+
+  COMMAND_STAGING: ${COMMAND}
+  COMMAND_RELEASE_CANDIDATE: ${COMMAND}
+  COMMAND_PROD: ${COMMAND}
+
+  ### Common args
+  LFTP_ARGS: -X .* -X *.log
+  ### WP specific args
+#  LFTP_ARGS: -X .* -X wp-config.php -X wp-content/uploads/ -X wp-content/wflogs/ -X wp-content/visualcomposer-assets/
