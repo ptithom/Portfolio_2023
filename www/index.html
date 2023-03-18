@@ -6,24 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="follow, index">
 
-    <title>Thomas sire | Dev web</title>
-    <meta name="description" content="A simple HTML5 Template for new projects.">
-    <meta name="author" content="SitePoint">
+    <title>Thomas Sire | Front End Developer | WordPress Expert </title>
+    <meta name="description" content="Hire Professional & WordPress Developer. Building animations and interactive experiences, hi-end solutions, website maintenance & security">
+    <meta name="author" content="Thomas Sire">
 
-    <meta property="og:site_name" content="Laurent Thiebault | Frontend Engineering Manager">
+    <meta property="og:site_name" content="Thomas sire">
     <meta property="og:locale" content="fr_FR">
-    <meta property="og:title" content="A Basic HTML5 Template">
+    <meta property="og:title" content="Thomas sire | Front End Developer | WordPress Expert ">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.sitepoint.com/a-basic-html5-template/">
-    <meta property="og:description" content="A simple HTML5 Template for new projects.">
-    <meta property="og:image" content="image.png">
+    <meta property="og:url" content="https://thomassire.com">
+    <meta property="og:description" content="Hire Professional & WordPress Developer. Building animations and interactive experiences, hi-end solutions, website maintenance & security">
+<!--    <meta property="og:image" content="image.png">-->
 
-    <link rel="icon" href="/favicon.ico">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="assets/img/favicon.ico">
+<!--    <link rel="icon" href="/favicon.svg" type="image/svg+xml">-->
+<!--    <link rel="apple-touch-icon" href="/apple-touch-icon.png">-->
     <link rel="stylesheet" href="css/reset.css?v=1.0">
     <link rel="stylesheet" href="css/stylesheet.css?v=1.0">
     <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-53LCW7S');</script>
+    <!-- End Google Tag Manager -->
 </head>
 
 <body @scroll="handleScroll">
@@ -759,6 +767,7 @@
                     <h1 class="title">
                     <span class="line animate__animated animate__fadeInUp">
                         <span class="">Hello,</span>
+                        <img src="">
                     </span>
                         <span class="line animate__animated animate__fadeInUp">
                         <span >je suis </span>
@@ -766,12 +775,12 @@
                         <span class="letters_group">homas</span>,
                     </span>
                         <span class="line animate__animated animate__fadeInUp">
-                        <span class="">Developpeur Web</span>
+                        <span class="">Développeur Web</span>
                     </span>
                     </h1>
 
                     <h2 class="subtitle animate__animated animate__flipInX animate__delay-2s" >
-                        <span id="typed"></span>
+                       - <span id="typed"></span>
                     </h2>
                 </div>
 
@@ -789,7 +798,39 @@
 
         <section :id="items[1].id" class="animate__animated animate__slideInUp animate__delay-1s">
             <div class="wrapper">
-                <h2>{{items[1].title}}</h2>
+                <div class="content_top">
+                    <div class="header_section">
+                        <h2>{{items[1].title}}</h2>
+                        <div class="wrapper_list_tech">
+                            <img v-for="tech in items[1].list_tech" :srcset="tech.img+', 430px'" :alt="tech.name" :title="tech.name" :id="'img_'+tech.name" draggable="false">
+                        </div>
+                    </div>
+
+                    <h3>{{items[1].subtitle}}</h3>
+
+                    <p>{{items[1].content}}</p>
+
+                    <button :href="items[1].link_cv" alt="Mon CV" title="Mon CV"> Mon CV </button>
+
+                </div>
+                <div class="content_bottom">
+                    <div class="wrapper_list_skill">
+                        <div class="skill" v-for="skill in items[1].list_top_skill" >
+                            <div class="title">{{skill.name}}</div>
+                            <div class="more">{{skill.more}}</div>
+                            <div class="info_percent" :style="'--percent:'+skill.percent+'%'"></div>
+                        </div>
+                        <p class="other">{{items[1].other}}</p>
+                    </div>
+                    <div class="wrapper_list_xp">
+                        <div class="xp" v-for="exp in items[1].exp" >
+                            <div class="title">{{exp.title}}</div>
+                            <div><span class="time">{{exp.time}}</span> <span class="job_name" v-if="exp.job_name">{{exp.job_name}}</span></div>
+                            <div class="content">{{exp.content}}</div>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         </section>
@@ -799,25 +840,12 @@
 
                 <h2>{{items[2].title}}</h2>
 
-                <div class="content">
-                    <p>
-                        Développeur web pluridisciplinaire, je suis passionné par la création de sites web qui offrent une expérience utilisateur exceptionnelle et qui sont bien référencés grâce à une optimisation SEO efficace. Pour moi, l'utilisateur est au cœur de mon travail. Je m'efforce de créer des plateformes accessibles, intuitives et percutantes qui répondent aux besoins de tous les utilisateurs.
-                    </p>
-                    <br>
-                    <p>
-                        Mon objectif est de créer des sites web qui se démarquent de la concurrence et attirent l'attention des utilisateurs. L'intuitivité, la simplicité de l'interface utilisateur sont essentielles pour permettre aux visiteurs de naviguer facilement et de trouver rapidement les informations qu'ils recherchent.
-                    </p>
-                </div>
+                <div class="sub_content">
+                    <div class="content" v-html="items[2].content"></div>
 
-                <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
-                    <img class="image" src="https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" />
-                    <img class="image" src="https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80" draggable="false" />
-                    <img class="image" src="https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" />
-                    <img class="image" src="https://images.unsplash.com/photo-1495805442109-bf1cf975750b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" />
-                    <img class="image" src="https://images.unsplash.com/photo-1548021682-1720ed403a5b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" />
-                    <img class="image" src="https://images.unsplash.com/photo-1496753480864-3e588e0269b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2134&q=80" draggable="false" />
-                    <img class="image" src="https://images.unsplash.com/photo-1613346945084-35cccc812dd5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1759&q=80" draggable="false" />
-                    <img class="image" src="https://images.unsplash.com/photo-1516681100942-77d8e7f9dd97?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" />
+                    <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+                        <img class="image" v-for="project in items[2].projects" :srcset="project.img+', 430px'" :alt="project.name" :id="'img_'+project.id" draggable="false">
+                    </div>
                 </div>
             </div>
         </section>
@@ -825,21 +853,19 @@
         <section :id="items[3].id">
             <div class="wrapper">
                 <h2>{{items[3].title}}</h2>
+
+                <a  :href="'mailto:'+contact.email" class="link_contact">{{contact.email}}</a></div>
             </div>
         </section>
-
-        <section :id="items[4].id">
-            <div class="wrapper">
-                <h2>{{items[4].title}}</h2>
-            </div>
-        </section>
-
 
     </section>
 
     <footer id="footer">
     </footer>
-
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53LCW7S"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 </div>
 
 

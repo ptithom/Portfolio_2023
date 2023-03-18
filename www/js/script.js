@@ -1,7 +1,7 @@
 const app = Vue.createApp({
     data() {
         return {
-            theme : 'dark',
+            theme: 'dark',
             sky_active: false,
             blob_wakeup: false,
             blob1: document.getElementById("blob1"),
@@ -21,18 +21,128 @@ const app = Vue.createApp({
                 },
                 {
                     id: 'skills',
-                    label_link: 'Skills',
-                    title: 'Ma caisse a outils'
+                    label_link: 'A-propos',
+                    title: 'Mes outils & Experience',
+                    link_cv : 'assets/files/cv.pdf',
+                    subtitle: "Developpeur pluridisciplinaire, diplômée d'une License Professionnel Developpeur Web et Web mobile.",
+                    content: "Pationner d'experience utilisateur et de beau code. Je réalise les projet des mes clients en gardant une vision globale des mes réalisation en prenant autant d'attention a la form, qu'a accésibilité et au référencement de c'elle-ci.",
+                    other: "Compétence annexes : Docker, SEO, GIT, SQL, Jquery, Bootstrap, Ux-Design, Gestion de projet, Webmarketiing.",
+                    exp: [
+                        {
+                            title: "Full-stack developer",
+                            time: "Depuis 2014 ",
+                            job_name: "Stafe",
+                            content: "Dans une Agence web & webmarketing spécialisé dans le e-commerce, je participe a l'étude et la création des plateformes sur lequel je travails.",
+                        },
+                        {
+                            job_name: "",
+                            title: "Independent developer",
+                            content: "Voulant me confronter a de vrai projet. Je me suis lancer en indépendant a la fin de ma license web en Alternance.",
+                            time: "2013 - 2015",
+                        }
+                    ],
+                    list_tech: [
+                        {
+                            name: "HTML",
+                            img: "assets/img/svg/html.svg",
+                        },
+                        {
+                            name: "CSS",
+                            img: "assets/img/svg/css3.svg",
+                        },
+                        {
+                            name: "JS",
+                            img: "assets/img/svg/js.svg",
+                        },
+                        {
+                            name: "Scss",
+                            img: "assets/img/svg/scss.svg",
+                        },
+                        {
+                            name: "PHP",
+                            img: "assets/img/svg/php.svg",
+                        },
+                        {
+                            name: "Wordpress",
+                            img: "assets/img/svg/wordpress.svg",
+                        },
+                    ],
+                    list_top_skill: [
+                        {
+                            name: "Front-end ",
+                            more: "HTML - CSS3 - Sass - JS - Vue.js",
+                            percent: "90",
+                        },
+                        {
+                            name: "Front-Back-end ",
+                            more: "PHP - Cakephp - Laravel",
+                            percent: "65",
+                        },
+                        {
+                            name: "CMS",
+                            more: "Wordpress - Prestashop",
+                            percent: "75",
+                        },
+                    ]
                 },
                 {
                     id: 'projet',
                     label_link: 'Projet',
-                    title: 'Mon portfolio'
-                },
-                {
-                    id: 'apropos',
-                    label_link: 'A propos',
-                    title: 'Ma vision & autre chose remarquable'
+                    title: 'Mon portfolio',
+                    content: '<p>Je suis passionné par la création de sites web qui offrent une expérience utilisateur exceptionnelle et qui sont bien référencés grâce à une optimisation SEO efficace. Pour moi, l\'utilisateur est au cœur de mon travail. Je m\'efforce de créer des plateformes accessibles, intuitives et percutantes qui répondent aux besoins de tous les utilisateurs.</p>\n' +
+                        '<br>\n' +
+                        '<p>Mon objectif est de créer des sites web qui se démarquent de la concurrence et attirent l\'attention des utilisateurs. L\'intuitivité, la simplicité de l\'interface utilisateur sont essentielles pour permettre aux visiteurs de naviguer facilement et de trouver rapidement les informations qu\'ils recherchent.</p>\n',
+                    projects: [
+                        {
+                            id: "treca",
+                            name: "Treca",
+                            img: "assets/img/treca.webp",
+                            content: "",
+                            skills: "Developpement Front / Module Prestashop 1.7",
+                        },
+                        {
+                            id: "ateliervie",
+                            name: "Atelier-vié",
+                            img: "assets/img/ateliervie.jpg",
+                            content: "",
+                            skills: "Wordpress / Animation CSS",
+                        },
+                        {
+                            id: "komunity-web",
+                            name: "Komunity-Web",
+                            img: "assets/img/komunity_web.jpeg",
+                            content: "",
+                            skills: "Developpement Front / Wordpress",
+                        },
+                        {
+                            id: "woozbed",
+                            name: "Woozbed",
+                            img: "assets/img/woozbed.jpg",
+                            content: "",
+                            skills: "Intégration / Laravel",
+                        },
+                        {
+                            id: "vertlapub",
+                            name: "VertLaPub",
+                            img: "assets/img/vertlapub.webp",
+                            content: "",
+                            skills: "Wordpress - Woocommerce / Dev full-stack",
+                        },
+                        {
+                            id: "parc-zoo",
+                            name: "Parc zoologique",
+                            img: "assets/img/bioparc-parc.jpg",
+                            content: "",
+                            skills: "Wordpress / Evolution",
+                        },
+                        {
+                            id: "tridan",
+                            name: "Tridan",
+                            img: "assets/img/tridan.jpg",
+                            content: "",
+                            skills: "Developpement Front / Wordpress",
+                        },
+                    ],
                 },
                 {
                     id: 'contact',
@@ -47,7 +157,6 @@ const app = Vue.createApp({
         window.addEventListener('scroll', this.handleScroll);
 
         window.addEventListener('pointermove', this.handlePointerMove);
-
     },
     // computed property that auto-updates when the prop changes
     mounted() {
@@ -80,20 +189,20 @@ const app = Vue.createApp({
         window.removeEventListener('pointermove', this.handlePointerMove);
     },
     watch: {
-        sky_active: function(sky_active) {
-            if(sky_active){
+        sky_active: function (sky_active) {
+            if (sky_active) {
                 this.theme = 'dark';
                 document.getElementById(this.items[0].id).style.height = '100vh';
                 // document.querySelector('.sky').classList.remove('animate__fadeOut');
                 // document.querySelector('.sky').classList.add('animate__fadeIn');
 
-            }else{
+            } else {
                 // document.querySelector('.sky').classList.remove('animate__fadeIn');
                 // document.querySelector('.sky').classList.add('animate__fadeOut');
                 document.getElementById(this.items[0].id).style.height = '90vh';
             }
         },
-        theme: function(theme) {
+        theme: function (theme) {
             document.querySelector('body').classList.add('transition_theme');
             const themeToggleBtn = document.querySelector('.js-toggle-theme');
             document.documentElement.dataset.theme = theme;
@@ -133,15 +242,14 @@ const app = Vue.createApp({
                         this.current_section_label = '';
                         this.next_step_active = true;
                     } else {
+                        document.querySelectorAll('body #main>section').forEach((element) => {
+                            element.classList.remove('active');
+                        });
+                        element.classList.add('active');
                         this.next_step_active = false;
                         this.current_section_label = item.label_link.toLowerCase().split(' ').join('_');
                     }
                 }
-                // if(this.next_step_active){
-                //     document.querySelector('.next_step').style.animation = 'none';
-                //     document.querySelector('.next_step').style.animationDelay = '0s';
-                //     document.querySelector('.next_step').style.transform = 'translateY(-' + offset_scroll * 0.8 + '%)';
-                // }
                 let nav_step = document.getElementById('nav_step');
                 if (this.next_step_active) {
                     nav_step.setAttribute("href", '#' + this.items[1].id)
@@ -151,17 +259,13 @@ const app = Vue.createApp({
                 } else {
                     nav_step.setAttribute("href", '#' + this.items[0].id)
                 }
-
             })
 
         },
         show_nav() {
             this.nav_visible = !this.nav_visible;
         },
-        update_current_section(event) {
-            // this.current_section = event.target.textContent.toLowerCase().split(' ').join('_');
-        },
-        show_sky(){
+        show_sky() {
             this.sky_active = !this.sky_active;
         },
         toggle_theme() {
@@ -173,7 +277,7 @@ const app = Vue.createApp({
 }).mount('#app');
 
 var typed3 = new Typed('#typed', {
-    strings: ["Front-End developer","Expert Wordpress","Creative developer"],
+    strings: ["Front-End developer", "Expert Wordpress", "Creative developer"],
     typeSpeed: 100,
     backSpeed: 50,
     backDelay: 1000,
@@ -181,7 +285,9 @@ var typed3 = new Typed('#typed', {
     loop: true
 });
 
-
+/**
+ * paralax project
+ */
 
 const track = document.getElementById("image-track");
 
@@ -193,7 +299,7 @@ const handleOnUp = () => {
 }
 
 const handleOnMove = e => {
-    if(track.dataset.mouseDownAt === "0") return;
+    if (track.dataset.mouseDownAt === "0") return;
 
     const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
         maxDelta = window.innerWidth / 2;
@@ -204,14 +310,19 @@ const handleOnMove = e => {
 
     track.dataset.percentage = nextPercentage;
 
-    track.animate({
-        transform: `translate(${nextPercentage}%, -50%)`
-    }, { duration: 1200, fill: "forwards" });
 
-    for(const image of track.getElementsByClassName("image")) {
+    var style = window.getComputedStyle(track);
+    var matrix = new WebKitCSSMatrix(style.transform);
+    console.log('translateX: ', matrix.m42);
+
+    track.animate({
+        transform: `translate(${nextPercentage}%, ${matrix.m42}px)`
+    }, {duration: 1200, fill: "forwards"});
+
+    for (const image of track.getElementsByClassName("image")) {
         image.animate({
             objectPosition: `${100 + nextPercentage}% center`
-        }, { duration: 1200, fill: "forwards" });
+        }, {duration: 1200, fill: "forwards"});
     }
 }
 
@@ -224,6 +335,9 @@ window.ontouchend = e => handleOnUp(e.touches[0]);
 window.onmousemove = e => handleOnMove(e);
 window.ontouchmove = e => handleOnMove(e.touches[0]);
 
+/**
+ * END paralax project
+ */
 
 
 
