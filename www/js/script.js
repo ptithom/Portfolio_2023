@@ -13,6 +13,17 @@ const app = Vue.createApp({
                 email: 'hello@thomassire.com',
             },
             current_section_label: '',
+            project_popup: {
+                enable: false,
+                content_project: {
+                    id: "",
+                    name: "",
+                    img: "",
+                    img_min: "",
+                    content: "",
+                    skills: "",
+                },
+            },
             items: [
                 {
                     id: 'banner',
@@ -23,21 +34,21 @@ const app = Vue.createApp({
                     id: 'skills',
                     label_link: 'A-propos',
                     title: 'Mes outils & Experience',
-                    link_cv : 'assets/files/cv.pdf',
-                    subtitle: "Developpeur pluridisciplinaire, diplômée d'une License Professionnel Developpeur Web et Web mobile.",
-                    content: "Pationner d'experience utilisateur et de beau code. Je réalise les projet des mes clients en gardant une vision globale des mes réalisation en prenant autant d'attention a la form, qu'a accésibilité et au référencement de c'elle-ci.",
-                    other: "Compétence annexes : Docker, SEO, GIT, SQL, Jquery, Bootstrap, Ux-Design, Gestion de projet, Webmarketiing.",
+                    link_cv: 'assets/files/cv.pdf',
+                    subtitle: "Développeur pluridisciplinaire, diplômée d'une License Professionnel Développeur Web et Web mobile.",
+                    content: "Passionné d'expérience utilisateur et du beau code. Je réalise les projets des mes clients en gardant une vision globale sur mes réalisation. je place autant d'attention a la form, qu'a accessibilité et au performances de c'elle-ci.",
+                    other: "Compétence annexes : Docker, SEO, GIT, SQL, Jquery, Bootstrap, Ux-Design, Gestion de projet, Web-marketing.",
                     exp: [
                         {
                             title: "Full-stack developer",
                             time: "Depuis 2014 ",
                             job_name: "Stafe",
-                            content: "Dans une Agence web & webmarketing spécialisé dans le e-commerce, je participe a l'étude et la création des plateformes sur lequel je travails.",
+                            content: "Dans une Agence web & web-marketing spécialisé dans le e-commerce, je participe de l'étude des besoins jusqu'a la livraison, avec un oeil attentif sur la performance et le SEO des rendus.",
                         },
                         {
                             job_name: "",
                             title: "Independent developer",
-                            content: "Voulant me confronter a de vrai projet. Je me suis lancer en indépendant a la fin de ma license web en Alternance.",
+                            content: "Voulant me confronter a de vrai projets. Je me suis lancé en indépendant a la fin de ma license web en Alternance.",
                             time: "2013 - 2015",
                         }
                     ],
@@ -97,27 +108,31 @@ const app = Vue.createApp({
                             id: "treca",
                             name: "Treca",
                             img: "assets/img/treca.webp",
-                            content: "",
+                            img_min: "assets/img/treca.min.webp",
+                            content: "Création de la boutique en ligne Sur Prestashop 1.7 en multilingue (7 langues). Création de module sur mesure pour l'administrabilité de nombreuses zones custom. Intégration avec animation au scroll a l'aide de la lib scrollMagic.js",
                             skills: "Developpement Front / Module Prestashop 1.7",
                         },
                         {
                             id: "ateliervie",
                             name: "Atelier-vié",
-                            img: "assets/img/ateliervie.jpg",
+                            img: "assets/img/ateliervie.webp",
+                            img_min: "assets/img/ateliervie.min.webp",
                             content: "",
                             skills: "Wordpress / Animation CSS",
                         },
                         {
                             id: "komunity-web",
                             name: "Komunity-Web",
-                            img: "assets/img/komunity_web.jpeg",
+                            img: "assets/img/komunity_web.webp",
+                            img_min: "assets/img/komunity_web.min.webp",
                             content: "",
                             skills: "Developpement Front / Wordpress",
                         },
                         {
                             id: "woozbed",
                             name: "Woozbed",
-                            img: "assets/img/woozbed.jpg",
+                            img: "assets/img/woozbed.webp",
+                            img_min: "assets/img/woozbed.min.webp",
                             content: "",
                             skills: "Intégration / Laravel",
                         },
@@ -125,20 +140,23 @@ const app = Vue.createApp({
                             id: "vertlapub",
                             name: "VertLaPub",
                             img: "assets/img/vertlapub.webp",
+                            img_min: "assets/img/vertlapub.min.webp",
                             content: "",
                             skills: "Wordpress - Woocommerce / Dev full-stack",
                         },
                         {
                             id: "parc-zoo",
                             name: "Parc zoologique",
-                            img: "assets/img/bioparc-parc.jpg",
+                            img: "assets/img/bioparc-parc.webp",
+                            img_min: "assets/img/bioparc-parc.min.webp",
                             content: "",
                             skills: "Wordpress / Evolution",
                         },
                         {
                             id: "tridan",
                             name: "Tridan",
-                            img: "assets/img/tridan.jpg",
+                            img: "assets/img/tridan.webp",
+                            img_min: "assets/img/tridan.min.webp",
                             content: "",
                             skills: "Developpement Front / Wordpress",
                         },
@@ -212,6 +230,9 @@ const app = Vue.createApp({
         },
     },
     methods: {
+        update_current_section() {
+            this.nav_visible = !this.nav_visible;
+        },
         handlePointerMove(event) {
             const {clientX, clientY} = event;
 
@@ -234,32 +255,38 @@ const app = Vue.createApp({
         },
         handleScroll(event) {
             const offset_scroll = window.scrollY;
+            const win_height = window.innerHeight;
+
+            // search section active
             this.items.forEach((item, index) => {
                 const element = document.getElementById(item.id);
-                const win_height = window.innerHeight;
-                if (offset_scroll >= (document.getElementById(item.id).offsetTop - (win_height / 2))) {
+                if ((element.offsetTop - (win_height / 2)) <= offset_scroll &&
+                    offset_scroll <= (element.offsetTop - (win_height / 2) + element.offsetHeight) &&
+                    !element.classList.contains("active")
+                ) {
+                    document.querySelectorAll('body #main>section').forEach((element) => {
+                        element.classList.remove('active');
+                    });
+                    element.classList.add('show', 'active');
                     if (index == 0) {
-                        this.current_section_label = '';
                         this.next_step_active = true;
+                        this.current_section_label = '';
                     } else {
-                        document.querySelectorAll('body #main>section').forEach((element) => {
-                            element.classList.remove('active');
-                        });
-                        element.classList.add('active');
                         this.next_step_active = false;
                         this.current_section_label = item.label_link.toLowerCase().split(' ').join('_');
                     }
                 }
-                let nav_step = document.getElementById('nav_step');
-                if (this.next_step_active) {
-                    nav_step.setAttribute("href", '#' + this.items[1].id)
-                    nav_step.style.animation = 'none';
-                    nav_step.style.animationDelay = '0s';
-                    nav_step.style.transform = 'translateY(-' + offset_scroll * 0.8 + '%)';
-                } else {
-                    nav_step.setAttribute("href", '#' + this.items[0].id)
-                }
             })
+
+            let nav_step = document.getElementById('nav_step');
+            if (this.next_step_active) {
+                nav_step.setAttribute("href", '#' + this.items[1].id)
+                nav_step.style.animation = 'none';
+                nav_step.style.animationDelay = '0s';
+                nav_step.style.transform = 'translateY(-' + offset_scroll * 0.8 + '%)';
+            } else {
+                nav_step.setAttribute("href", '#' + this.items[0].id)
+            }
 
         },
         show_nav() {
@@ -273,8 +300,45 @@ const app = Vue.createApp({
             const themeTo = theme === 'light' ? 'dark' : 'light';
             this.theme = themeTo;
         },
+        isScrolledIntoView(elem) {
+            var docViewTop = $(window).scrollTop();
+            var docViewBottom = docViewTop + $(window).height();
+
+            var elemTop = $(elem).offset().top;
+            var elemBottom = elemTop + $(elem).height();
+
+            return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+        },
+        animateCSS(element, animation, prefix = 'animate__') {
+            // We create a Promise and return it
+            new Promise((resolve, reject) => {
+                const animationName = `${prefix}${animation}`;
+                const node = document.querySelector(element);
+
+                node.classList.add(`${prefix}animated`, animationName);
+
+                // When the animation ends, we clean the classes and resolve the Promise
+                function handleAnimationEnd(event) {
+                    event.stopPropagation();
+                    node.classList.remove(`${prefix}animated`, animationName);
+                    resolve('Animation ended');
+                }
+
+                node.addEventListener('animationend', handleAnimationEnd, {once: true});
+            });
+        },
+        hide_project(event) {
+            this.project_popup.enable = false;
+        },
+        show_project(event) {
+            const index = event.target.dataset.index;
+
+            this.project_popup.content_project = this.items[2].projects[index]
+            this.project_popup.enable = true;
+        }
     },
 }).mount('#app');
+
 
 var typed3 = new Typed('#typed', {
     strings: ["Front-End developer", "Expert Wordpress", "Creative developer"],
@@ -338,6 +402,7 @@ window.ontouchmove = e => handleOnMove(e.touches[0]);
 /**
  * END paralax project
  */
+
 
 
 
