@@ -765,7 +765,7 @@
 
                             <p>{{items[1].content}}</p>
 
-                            <button :href="items[1].link_cv" alt="Mon CV" title="Mon CV" aria-label="CV"> Mon CV </button>
+                                <a :href="items[1].link_cv" class="btn_primary" target="_blank" alt="Mon CV" title="Mon CV" aria-label="CV"> Mon CV </a>
                         </div>
 
                     </div>
@@ -831,6 +831,9 @@
                     <br>
                     <br>
                     > <a  :href="'mailto:'+contact.email" class="link_contact">{{contact.email}}</a>
+                    <br>
+                    <br>
+                    <a :href="items[1].link_cv" class="btn_primary" target="_blank" alt="Mon CV" title="Mon CV" aria-label="CV"> Mon CV </a>
                 </div>
             </section>
 

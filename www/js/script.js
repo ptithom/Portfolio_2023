@@ -34,7 +34,7 @@ const app = Vue.createApp({
                     id: 'skills',
                     label_link: 'A-propos',
                     title: 'Mes outils & Experience',
-                    link_cv: 'assets/files/cv.pdf',
+                    link_cv: 'assets/files/CV.pdf',
                     subtitle: "Développeur pluridisciplinaire, diplômée d'une License Professionnel Développeur Web et Web mobile.",
                     content: "Passionné d'expérience utilisateur et du beau code. Je réalise les projets des mes clients en gardant une vision globale sur mes réalisation. je place autant d'attention a la form, qu'a accessibilité et au performances de c'elle-ci.",
                     other: "Compétence annexes : Docker, SEO, GIT, SQL, Jquery, Bootstrap, Ux-Design, Gestion de projet, Web-marketing.",

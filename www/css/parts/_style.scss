@@ -23,6 +23,19 @@ a{
   }
 }
 
+.btn_primary{
+  background-color: $primary;
+  border: 1px solid $primary;
+  padding: 5px 15px;
+  color: black;
+  transition: all 0.5s;
+  &:hover{
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+  }
+}
+
 body{
   font-family: $font_primary;
 }

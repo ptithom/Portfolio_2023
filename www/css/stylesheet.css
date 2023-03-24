@@ -7,6 +7,19 @@ a:hover {
   color: #d5931d;
 }
 
+.btn_primary {
+  background-color: #6fd5e0;
+  border: 1px solid #6fd5e0;
+  padding: 5px 15px;
+  color: black;
+  transition: all 0.5s;
+}
+.btn_primary:hover {
+  border: 1px solid white;
+  background-color: transparent;
+  color: white;
+}
+
 body {
   font-family: monospace;
 }
@@ -1051,12 +1064,12 @@ body #main section#skills .content_top h3 {
 }
 body #main section#skills .content_top p {
   width: 80%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   display: block;
 }
 body #main section#skills .content_bottom {
   display: flex;
-  margin-top: 10vh;
+  margin-top: 8vh;
   gap: 80px;
   justify-content: space-between;
   flex-direction: column;
