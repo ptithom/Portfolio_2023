@@ -16,8 +16,7 @@ Plusieurs ndd sont à mettre en place en ammont :
 Remplacez bien sûr *mon-nouveau-projet* par un slug représentant votre projet.
 
 ```bash
-git clone git@git.stafe.fr:docker/lamp.git ./mon-nouveau-projet
-```
+git clone ...
 
 2. Configurez votre projet
 
