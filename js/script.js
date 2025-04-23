@@ -27,173 +27,171 @@ const app = Vue.createApp({
             },
             items: [
                 {
-                    id: 'banner',
-                    label_link: 'Banner',
-                    title: 'Senior Full-stack developer / Expert Wordpress / Creative developer'
+                    "id": "banner",
+                    "label_link": "Banner",
+                    "title": "Senior Full-stack developer / Expert Wordpress / Creative developer"
                 },
                 {
-                    id: 'skills',
-                    label_link: 'À-propos',
-                    title: 'Mes outils & Expériences',
-                    link_cv: 'assets/files/CV.pdf',
-                    subtitle: "Développeur pluridisciplinaire, diplomée d'une License professionnel Développeur Web et Web mobile.",
-                    content: "Passionné d'expérience utilisateur et du beau code. Je réalise les projets de mes clients en gardant une vision globale sur mes réalisations. Je place autant d'attention à la forme, qu'à l'accessibilité et aux performances de c'elle ci.",
-                    other: "Compétences annexes : SEO, GIT, Docker, SQL, Accesibilité, Animation, Eco-Conception, Bootstrap, Ux-Design, Web-marketing.",
-                    exp: [
+                    "id": "skills",
+                    "label_link": "À-propos",
+                    "title": "Mes outils & Expériences",
+                    "link_cv": "assets/files/CV.pdf",
+                    "subtitle": "Développeur pluridisciplinaire, diplômé d'une Licence professionnelle Développeur Web et Web mobile.",
+                    "content": "Passionné d'expérience utilisateur et du beau code. Je réalise les projets de mes clients en gardant une vision globale sur mes réalisations. Je place autant d'attention à la forme qu'à l'accessibilité et aux performances de celles-ci.",
+                    "other": "Compétences annexes : SEO, GIT, Docker, SQL, Accessibilité, Animation, Éco-conception, Bootstrap, UX-Design, Web-marketing.",
+                    "exp": [
                         {
-                            title: "Développeur Wordpress - Senior",
-                            time: "2023 - 2024",
-                            job_name: "Webqam",
-                            content: "Dans une Agence web de grande envergure, j'ai travaillé en équipe sûr de gros projets la coordination et la qualité de code avait une place préponderante, pour une livraison irréprochable.",
+                            "title": "Développeur Wordpress - Senior",
+                            "time": "2023 - 2024",
+                            "job_name": "Webqam",
+                            "content": "Dans une agence web de grande envergure, j'ai travaillé en équipe sur de gros projets. La coordination et la qualité du code avaient une place prépondérante pour une livraison irréprochable."
                         },
                         {
-                            title: "Développeur Full-stack ",
-                            time: "2014 - 2023",
-                            job_name: "Stafe",
-                            content: "Dans une Agence web & web-marketing spécialisée dans le e-commerce, je participe à la réalisation du projet de l'étude des besoins jusqu'à l'installation en production', avec un oeil attentif sur la performance et le SEO des rendus.",
+                            "title": "Développeur Full-stack ",
+                            "time": "2014 - 2023",
+                            "job_name": "Stafe",
+                            "content": "Dans une agence web & web-marketing spécialisée dans le e-commerce, je participe à la réalisation du projet de l'étude des besoins jusqu'à l'installation en production, avec un œil attentif sur la performance et le SEO des rendus."
                         },
                         {
-                            job_name: "Developpeur Web",
-                            time: "2013 - 2015",
-                            title: "Développeur Independent",
-                            content: "Voulant me confronter à de vrais projets, je me suis lancé en indépendant à la fin de ma license web en alternance.",
+                            "title": "Développeur Independent",
+                            "time": "2013 - 2015",
+                            "job_name": "Développeur Web",
+                            "content": "Voulant me confronter à de vrais projets, je me suis lancé en indépendant à la fin de ma licence web en alternance."
                         }
                     ],
-                    list_tech: [
+                    "list_tech": [
                         {
-                            name: "HTML",
-                            img: "assets/img/svg/html.svg",
+                            "name": "HTML",
+                            "img": "assets/img/svg/html.svg"
                         },
                         {
-                            name: "CSS",
-                            img: "assets/img/svg/css3.svg",
+                            "name": "CSS",
+                            "img": "assets/img/svg/css3.svg"
                         },
                         {
-                            name: "JS",
-                            img: "assets/img/svg/js.svg",
+                            "name": "JS",
+                            "img": "assets/img/svg/js.svg"
                         },
                         {
-                            name: "Scss",
-                            img: "assets/img/svg/scss.svg",
+                            "name": "Scss",
+                            "img": "assets/img/svg/scss.svg"
                         },
                         {
-                            name: "PHP",
-                            img: "assets/img/svg/php.svg",
+                            "name": "PHP",
+                            "img": "assets/img/svg/php.svg"
                         },
                         {
-                            name: "Wordpress",
-                            img: "assets/img/svg/wordpress.svg",
-                        },
+                            "name": "Wordpress",
+                            "img": "assets/img/svg/wordpress.svg"
+                        }
                     ],
-                    list_top_skill: [
+                    "list_top_skill": [
                         {
-                            name: "Front-end",
-                            more: "JavaScript -> Vue.js",
-                            percent: "90",
+                            "name": "Front-end",
+                            "more": "JavaScript -> Vue.js",
+                            "percent": "90"
                         },
                         {
-                            name: "Back-end",
-                            more: "PHP -> Cakephp - Laravel",
-                            percent: "90",
+                            "name": "Back-end",
+                            "more": "PHP -> Cakephp - Laravel",
+                            "percent": "90"
                         },
                         {
-                            name: "CMS",
-                            more: "Wordpress - Prestashop",
-                            percent: "90",
+                            "name": "CMS",
+                            "more": "Wordpress - Prestashop",
+                            "percent": "90"
                         },
                         {
-                            name: "Gestion de Projets",
-                            more: "Redmine, Git,...",
-                            percent: "90",
+                            "name": "Gestion de Projets",
+                            "more": "Redmine, Git, CI/CD, Linter,...",
+                            "percent": "90"
                         }
                     ]
                 },
                 {
-                    id: 'projet',
-                    label_link: 'Projets',
-                    title: 'Mon portfolio',
-                    content: '<p>Développeur web pluridisciplinaire, je place l’expérience utilisateur, le SEO et la qualité au cœur de mes travaux. Convaincu que les plateformes d’aujourd’hui doivent être accessibles, intuitives. Je suis persuadé que le travail d’équipe est essentiel pour concevoir des solutions performantes et impactantes.</p>\n' +
-                     '<br>\n' +
-                     '<p>Mon tempérament calme et réfléchi m\'aide à avoir une bonne vision d\'ensemble des projets et un bon relationnel client. À mes yeux, la satisfaction de chacun passe par une bonne communication et compréhension des besoins.</p>\n',
-                    projects: [
+                    "id": "projet",
+                    "label_link": "Projets",
+                    "title": "Mon portfolio",
+                    "content": "<p>Développeur web pluridisciplinaire, je place l’expérience utilisateur, le SEO et la qualité au cœur de mes travaux. Convaincu que les plateformes d’aujourd’hui doivent être accessibles, intuitives. Je suis persuadé que le travail d’équipe est essentiel pour concevoir des solutions performantes et impactantes.</p><br><p>Mon tempérament calme et réfléchi m'aide à avoir une bonne vision d'ensemble des projets et un bon relationnel client. À mes yeux, la satisfaction de chacun passe par une bonne communication et compréhension des besoins.</p>",
+                    "projects": [
                         {
-                            id: "mikit",
-                            name: "Mikit",
-                            img: "assets/img/mikit.webp",
-                            img_min: "assets/img/mikit.min.webp",
-                            content: "Réalisation d'un site vitrine sous wordpress regroupent toute les agences Mikit Franchiser et leurs fiches de vente, leurs blogs et leur réalisation. Les infos sont mise a jours via l'API Salesforce.",
-                            link: "https://www.mikit.fr/",
-                            skills: "Développement Back & Front / Wordpress",
+                            "id": "mikit",
+                            "name": "Mikit",
+                            "img": "assets/img/mikit.webp",
+                            "img_min": "assets/img/mikit.min.webp",
+                            "content": "Réalisation d'un site vitrine sous WordPress regroupant toutes les agences Mikit franchisées et leurs fiches de vente, leurs blogs et leurs réalisations. Les informations sont mises à jour via l'API Salesforce.",
+                            "link": "https://www.mikit.fr/",
+                            "skills": "Développement Back & Front / WordPress"
                         },
                         {
-                            id: "moulinvest",
-                            name: "Moulinvest",
-                            img: "assets/img/moulinvest.webp",
-                            img_min: "assets/img/moulinvest.min.webp",
-                            content: "Réalisation d'un site vitrine sous wordpress regroupent toute les agences Mikit Franchiser et leurs fiches de vente, leurs blogs et leur réalisation. Les infos sont mise a jours via l'API Salesforce.",
-                            link: "https://www.moulinvest.com/",
-                            skills: "Développement Back & Front / Wordpress",
+                            "id": "moulinvest",
+                            "name": "Moulinvest",
+                            "img": "assets/img/moulinvest.webp",
+                            "img_min": "assets/img/moulinvest.min.webp",
+                            "content": "Réalisation d'un site vitrine sous WordPress regroupant toutes les agences Mikit franchisées et leurs fiches de vente, leurs blogs et leurs réalisations. Les informations sont mises à jour via l'API Salesforce.",
+                            "link": "https://www.moulinvest.com/",
+                            "skills": "Développement Back & Front / WordPress"
                         },
                         {
-                            id: "thomassire",
-                            name: "Portfolio",
-                            img: "assets/img/thomassire.webp",
-                            img_min: "assets/img/thomassire.min.webp",
-                            content: "Création de ce portfolio en testant pour la première fois le Vue.js, terrain d'expérimentation de pleins de nouvelles fonctionnalités CSS SVG et d'animation.",
-                            link: "https://github.com/ptithom/Portfolio_2023",
-                            skills: "Développement Front / Vue.js / full Animation CSS3",
+                            "id": "thomassire",
+                            "name": "Portfolio",
+                            "img": "assets/img/thomassire.webp",
+                            "img_min": "assets/img/thomassire.min.webp",
+                            "content": "Création de ce portfolio en testant pour la première fois Vue.js, terrain d'expérimentation de plein de nouvelles fonctionnalités CSS, SVG et d'animation.",
+                            "link": "https://github.com/ptithom/Portfolio_2023",
+                            "skills": "Développement Front / Vue.js / Full Animation CSS3"
                         },
                         {
-                            id: "treca",
-                            name: "Treca",
-                            img: "assets/img/treca.webp",
-                            img_min: "assets/img/treca.min.webp",
-                            content: "Création de la boutique en ligne sur Prestashop 1.7 en multilingue (7 langues). Création de modules sur mesure pour l'administrabilité de nombreuses zones custom. Intégration avec animation au scroll à l'aide de la lib scrollMagic.js",
-                            link: "https://treca.com/fr/",
-                            skills: "Développement Front / Module Prestashop 1.7",
+                            "id": "treca",
+                            "name": "Treca",
+                            "img": "assets/img/treca.webp",
+                            "img_min": "assets/img/treca.min.webp",
+                            "content": "Création de la boutique en ligne sur PrestaShop 1.7 en multilingue (7 langues). Création de modules sur mesure pour l'administrabilité de nombreuses zones custom. Intégration avec animation au scroll à l'aide de la librairie ScrollMagic.js.",
+                            "link": "https://treca.com/fr/",
+                            "skills": "Développement Front / Module PrestaShop 1.7"
                         },
                         {
-                            id: "kommunity-Booster",
-                            name: "Komunity-Booster",
-                            img: "assets/img/komunitybooster.webp",
-                            img_min: "assets/img/komunitybooster.min.webp",
-                            content: "CRM permetant d'animer des réseaux sociaux a l'aide de jeux concours, d'outil de publication et veille mais également d'éffectuer d'avoir des statistiques grace a de la collect d'informations sur votre marché.",
-                            link: "https://www.komunity-web.com/komunity-booster-outil-social-media/",
-                            skills: "CakePhp / Moteur de Template / Statistique / API / SQL",
+                            "id": "kommunity-Booster",
+                            "name": "Komunity-Booster",
+                            "img": "assets/img/komunitybooster.webp",
+                            "img_min": "assets/img/komunitybooster.min.webp",
+                            "content": "CRM permettant d'animer des réseaux sociaux à l'aide de jeux-concours, d'outils de publication et de veille, mais également d'effectuer des statistiques grâce à la collecte d'informations sur votre marché.",
+                            "link": "https://www.komunity-web.com/komunity-booster-outil-social-media/",
+                            "skills": "CakePHP / Moteur de Template / Statistique / API / SQL"
                         },
                         {
-                            id: "komunity-web",
-                            name: "Komunity-Web",
-                            img: "assets/img/komunity_web.webp",
-                            img_min: "assets/img/komunity_web.min.webp",
-                            content: "Site sous Wordpress, avec un fort travail d'animation et d'immersion gace a un travaille d'animation notamment sur la page de listing de publication et sur les pages de détailles.  ",
-                            link: "https://www.komunity-web.com/projets/",
-                            skills: "Développement Front / Wordpress / R&D animation",
+                            "id": "komunity-web",
+                            "name": "Komunity-Web",
+                            "img": "assets/img/komunity_web.webp",
+                            "img_min": "assets/img/komunity_web.min.webp",
+                            "content": "Site sous WordPress, avec un fort travail d'animation et d'immersion grâce à un travail d'animation notamment sur la page de listing de publications et sur les pages de détails.",
+                            "link": "https://www.komunity-web.com/projets/",
+                            "skills": "Développement Front / WordPress / R&D animation"
                         },
                         {
-                            id: "woozbed",
-                            name: "Woozbed",
-                            img: "assets/img/woozbed.webp",
-                            img_min: "assets/img/woozbed.min.webp",
-                            content: "Site ecoomerce sur mesure réaliser en Laravel",
-                            link: "",
-                            skills: "Intégration / Laravel",
+                            "id": "woozbed",
+                            "name": "Woozbed",
+                            "img": "assets/img/woozbed.webp",
+                            "img_min": "assets/img/woozbed.min.webp",
+                            "content": "Site e-commerce sur mesure réalisé en Laravel.",
+                            "link": "",
+                            "skills": "Intégration / Laravel"
                         },
                         {
-                            id: "vertlapub",
-                            name: "VertLaPub",
-                            img: "assets/img/vertlapub.webp",
-                            img_min: "assets/img/vertlapub.min.webp",
-                            content: "conception et migration d'un prestashop vers un wordpress sous woocommerce. Un gros travail de migration de BDD a été nécéssaire au vue du nombre d'article avec des caractéristiques différentes",
-                            link: "https://www.vertlapub.fr/",
-                            skills: "Wordpress - Woocommerce / Dev full-stack / Migration BDD",
+                            "id": "vertlapub",
+                            "name": "VertLaPub",
+                            "img": "assets/img/vertlapub.webp",
+                            "img_min": "assets/img/vertlapub.min.webp",
+                            "content": "Conception et migration d'un PrestaShop vers un WordPress sous WooCommerce. Un gros travail de migration de BDD a été nécessaire au vu du nombre d'articles avec des caractéristiques différentes.",
+                            "link": "https://www.vertlapub.fr/",
+                            "skills": "WordPress - WooCommerce / Dev full-stack / Migration BDD"
                         }
-                    ],
+                    ]
                 },
                 {
-                    id: 'contact',
-                    label_link: 'Contact',
-                    title: 'Me contacter'
+                    "id": "contact",
+                    "label_link": "Contact",
+                    "title": "Me contacter"
                 }
             ]
         }
